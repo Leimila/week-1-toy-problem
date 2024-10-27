@@ -49,7 +49,7 @@ function calculateNHIF(grossSalary) {
 
 }
 function calculateNSSF(grossSalary) {
-    return Math.min(grossSalary * 0.06, 2000);
+    return Math.min(grossSalary * 0.06, 1800);
 }
 function calculateNetSalary(basicSalary, benefits) {
     const grossSalary = basicSalary + benefits;
