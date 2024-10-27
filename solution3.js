@@ -1,3 +1,4 @@
+// PAYE (Tax) Calculation
 function calculatePAYE(grossSalary){
     let paye =0;
     if(grossSalary <= 24000) {
@@ -9,7 +10,7 @@ function calculatePAYE(grossSalary){
     }
     return paye;
 }
-
+// NHIF Deduction based on Gross Salary
 function calculateNHIF(grossSalary) {
     if (grossSalary <= 5999){
         return 150;
@@ -44,13 +45,17 @@ function calculateNHIF(grossSalary) {
     } else if (grossSalary <= 99999) {
         return 1600; 
     } else {
-        return 1700;
+        return 1700; // For gross salary above 100,000 KES, the NHIF deduction is 1700 KES
+
     }  
 
 }
+// NSSF Deduction based on Gross Salary
 function calculateNSSF(grossSalary) {
+    // NSSF deduction is 6% of gross salary, but capped at a maximum of 1800 KES
     return Math.min(grossSalary * 0.06, 1800);
 }
+// Function to calculate Net Salary based on basic salary and benefits
 function calculateNetSalary(basicSalary, benefits) {
     const grossSalary = basicSalary + benefits;
     const paye = calculatePAYE(grossSalary);
@@ -58,19 +63,20 @@ function calculateNetSalary(basicSalary, benefits) {
     const nssf = calculateNSSF(grossSalary);
     const netSalary = grossSalary - (paye + nhif + nssf);
     return{
-        grossSalary,
-        paye,
-        nhif,
-        nssf,
-        netSalary
+        grossSalary, // Return gross salary
+        paye,        // Return PAYE
+        nhif,        // Return NHIF deduction
+        nssf,        // Return NSSF deduction
+        netSalary    // Return net salary 
         
     };
 
 }
+// Example Usage
 const basicSalary = 50000;
 const benefits = 10000;
 const salaryDetails = calculateNetSalary(basicSalary, benefits);
-
+// Output the calculated salary details
 console.log(`Gross Salary: ${salaryDetails.grossSalary}`);
 console.log(`PAYE: ${salaryDetails.paye}`);
 console.log(`NHIF: ${salaryDetails.nhif}`);
